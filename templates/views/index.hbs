@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <link rel="icon" href="/img/weather.png">
+    <!--
+        Use the absolute path (path starting with '/') to be sure to access the static files of the application correctly
+        which are contained in the 'public' folder
+    -->
+    <!-- Link the 'styles.css' file for style of the web-page -->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <title>Home</title>
+</head>
+
+<body>
+<div class="main-content">
+    {{!-- Inject the 'header.hsb' content from the 'partials' folder --}}
+    {{>header}}
+
+    <form id="weather-form">
+        <label for="location-to-search">Location: </label>
+        <input id="location-to-search" placeholder="Location" type="text">
+        <button type="submit">Search</button>
+    </form>
+
+    <p id="found-location"></p>
+    <p id="found-forecast"></p>
+
+</div>
+
+{{>footer}}
+
+<script src="/js/utils.js"></script>
+</body>
+</html>
