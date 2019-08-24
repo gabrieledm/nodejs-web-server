@@ -13,10 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
         foundLocation.textContent = 'Loading...';
         foundForecast.textContent = '';
 
-        const port = location.port;
-
         // Fetch a resource from the network
-        fetch('http://localhost:' + port + '/weather?address=' + locationToSearch)
+        fetch('/weather?address=' + locationToSearch)
             .then(response => {
                 response.json().then(data => {
                     if (data.error) {
@@ -26,6 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         foundForecast.textContent = data.forecast;
                     }
                 });
+            })
+            .catch(reason => {
+                foundLocation.textContent = '';
+                foundForecast.textContent = '';
+                alert(reason.message);
             })
         ;
     });
