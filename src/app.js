@@ -123,4 +123,5 @@ app.get('*', (request, response) => {
 
 const port = 3000;
 // Start listening of the web application on passed port
-app.listen(port, () => console.log(`Server is up on port ${port}`));
+// Use 'process.env.PORT' to get the 'PORT' variable from environment variables passed in by Heroku
+app.listen(process.env.PORT || port, () => console.log(`Server is up on port ${port}`));
