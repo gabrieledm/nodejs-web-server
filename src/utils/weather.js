@@ -7,7 +7,7 @@ const request = require('request');
  * @param callback a callback function returning an error message and the retrieved data to the caller
  */
 const getWeather = ({latitude = 0.0, longitude = 0.0} = {}, callback) => {
-    let url = 'https://api.darksky.net/forecast/edc117323a12f6f343d46467fc776c01/{latitude},{longitude}?lang=it';
+    let url = 'https://api.darksky.net/forecast/edc117323a12f6f343d46467fc776c01/{latitude},{longitude}?lang=it&limit=1';
     url = url.replace('{latitude}', latitude);
     url = url.replace('{longitude}', longitude);
     request.get(
@@ -20,13 +20,14 @@ const getWeather = ({latitude = 0.0, longitude = 0.0} = {}, callback) => {
                 callback('Unable to connect to DarkSky APIs', undefined);
             } else {
                 const {currently, code: returnedCode} = body;
+                const dailyData = body.daily.data[0];
                 if (response.statusCode === 200 && !returnedCode) {
                     const summary = currently.summary;
                     const temp = currently.temperature;
                     const rain = currently.precipProbability;
                     callback(
                         undefined,
-                        `${summary}. It is currently ${temp} degrees out. There is ${rain}% chance of rain.`,
+                        `${summary}. It is currently ${temp} degrees out. There is ${rain}% chance of rain. Max temperature is ${dailyData.temperatureHigh}. Min temperature is ${dailyData.temperatureLow}`,
                     );
                 } else {
                     callback(body.error, undefined);
