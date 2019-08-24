@@ -8,13 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     weatherForm.addEventListener('submit', listener => {
         // Prevent the default behaviour for submit action (which is the refresh of the page)
         listener.preventDefault();
-        const location = searchText.value;
+        const locationToSearch = searchText.value;
 
         foundLocation.textContent = 'Loading...';
         foundForecast.textContent = '';
 
+        const port = location.port;
+
         // Fetch a resource from the network
-        fetch('http://localhost:3000/weather?address=' + location)
+        fetch('http://localhost:' + port + '/weather?address=' + locationToSearch)
             .then(response => {
                 response.json().then(data => {
                     if (data.error) {
